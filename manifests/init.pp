@@ -65,6 +65,16 @@ class pki (
 
   if $pki == 'simp' {
 
+    if $facts['os']['name'] in ['Debian','Ubuntu'] {
+      file { '/etc/pki':
+        ensure => 'directory',
+        owner  => 'root',
+        group  => 'root',
+        mode   => '0655',
+        tag    => 'firstrun',
+      }
+    }
+
     file { '/etc/pki/simp':
       ensure => 'directory',
       owner  => 'root',
